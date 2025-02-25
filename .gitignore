@@ -1,0 +1,9 @@
+node_modules/
+package-lock.json 
+src/*.mp4
+/src/*.png
+/src/*.webp
+/src/*.gif
+/src/*.mov
+/src/*.webm
+/src/test.js
