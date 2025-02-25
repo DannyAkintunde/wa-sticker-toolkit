@@ -48,6 +48,10 @@ class Sticker {
             });
             return fileName;
         };
+        /*Deprecated only add to alw reverse compatability to alternatives.*/
+        this.toMessage = async () => {
+            return { sticker: await this.build() };
+        };
 
         this.setID = id => {
             this.metadata.id = id;
