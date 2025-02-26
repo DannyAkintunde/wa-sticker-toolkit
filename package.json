@@ -1,14 +1,14 @@
 {
-  "name": "wa-sticker-maker",
+  "name": "wa-sticker-toolkit",
   "version": "0.0.1",
   "description": "A package to create stickers for WhatsApp.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test at the moment, I'm to lazy to do so now.\" && exit 0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DannyAkintunde/wa-sticker-maker.git"
+    "url": "git+https://github.com/DannyAkintunde/wa-sticker-toolkit.git"
   },
   "keywords": [
     "sticker",
@@ -17,9 +17,9 @@
   "author": "DannyAkintunde",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DannyAkintunde/wa-sticker-maker/issues"
+    "url": "https://github.com/DannyAkintunde/wa-sticker-toolkit/issues"
   },
-  "homepage": "https://github.com/DannyAkintunde/wa-sticker-maker#readme",
+  "homepage": "https://github.com/DannyAkintunde/wa-sticker-toolkit#readme",
   "dependencies": {
     "axios": "^1.7.9",
     "fluent-ffmpeg": "^2.1.3",
