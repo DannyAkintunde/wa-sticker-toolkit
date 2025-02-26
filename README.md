@@ -198,4 +198,4 @@ Thanks for using wa-sticker-toolkit!
 
 ---
 
-This program is licenced under the [MIT](LICENCE) licence
+This program is licensed under the [MIT](LICENSE) license.
