@@ -15,8 +15,7 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: 20
-            - run: npm i -g npm@10
-            - run: npm ci
+            - run: npm install # I had an issue using npm ci
             - run: npm test
 
     publish-npm:
@@ -28,8 +27,7 @@ jobs:
               with:
                   node-version: 20
                   registry-url: https://registry.npmjs.org/
-            - run: npm i -g npm@10
-            - run: npm ci
+            - run: npm install
             - run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{secrets.npm_token}}
