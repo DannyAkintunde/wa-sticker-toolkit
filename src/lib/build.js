@@ -17,7 +17,7 @@ async function buildSticker(stickerObject) {
         let isVideo = false;
         // convert if needed
         if (/image/.test(mime)) {
-            if (ext !== "png") buffer = await imageToPng(buffer);
+            if (ext !== "png") buffer = await imageToPng(buffer, ext);
             buffer = await applyStickerTypeToStatic(
                 buffer,
                 stickerObject.options

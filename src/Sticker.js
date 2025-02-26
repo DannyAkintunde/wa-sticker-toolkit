@@ -132,7 +132,7 @@ class Sticker {
 }
 
 function createSticker(...options) {
-    return new Sticker(...options);
+    return new Sticker(...options).build();
 }
 
 module.exports = { Sticker, createSticker };

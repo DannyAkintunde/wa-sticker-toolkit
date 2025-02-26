@@ -12,7 +12,7 @@ const StickerTypes = Object.freeze({
     DEFAULT: "defualt",
     FILL: "fill",
     CROPPED: "crop",
-    CIRCLE: "circle"
+    CIRCLE: "circle",
 });
 
 async function applyStickerTypeToMedia(
@@ -64,7 +64,7 @@ async function applyStickerTypeToMedia(
             }
             break;
         default: {
-            throw new Error("Invalid Sticker Type selected.")
+            throw new Error("Invalid Sticker Type selected.");
         }
     }
 }
@@ -72,7 +72,7 @@ async function applyStickerTypeToMedia(
 async function applyStickerTypeToStatic(buffer, options) {
     const stickerType = options.type;
     const tmpFileIn = tmp.fileSync({ postfix: ".png" });
-    const tmpFileOut = tmp.fileSync({ postfix: ".png" });
+    const tmpFileOut = tmp.fileSync({ postfix: ".webp" });
 
     fs.writeFileSync(tmpFileIn.name, buffer);
 

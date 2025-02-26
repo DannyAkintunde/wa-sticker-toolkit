@@ -50,7 +50,7 @@ async function processMedia(
     const {
         borderRadius = 0,
         borderWidth = 0,
-        borderColor = "black",
+        borderColor = "white",
         backgroundColor = "transparent",
         quality = 100
     } = options;
@@ -230,6 +230,7 @@ function processFilters(
                 "argb"
             ]);
         }
+
         process.run();
     });
 }

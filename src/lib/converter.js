@@ -1,4 +1,5 @@
 const fs = require("fs");
+const sharp = require("sharp");
 const ffmpeg = require("fluent-ffmpeg");
 const tmp = require("tmp");
 
@@ -41,39 +42,13 @@ async function imageToWebp(media) {
     return buff;
 }
 
-async function imageToPng(media) {
+async function imageToPng(media, ext) {
     const tmpFileOut = tmp.fileSync({ postfix: ".png" });
-    const tmpFileIn = tmp.fileSync({ postfix: ".jpg" });
+    const tmpFileIn = tmp.fileSync({ postfix: `.${ext}` });
 
     fs.writeFileSync(tmpFileIn.name, media);
 
-    await new Promise((resolve, reject) => {
-        ffmpeg(tmpFileIn.name)
-            .on("error", err => {
-                reject(err);
-                tmpFileIn.removeCallback();
-                tmpFileOut.removeCallback();
-            })
-            .on("end", () => {
-                resolve(true);
-                tmpFileIn.removeCallback();
-            })
-            .on("start", command => {
-                if (global.DEBUG) {
-                    console.info("Image conversion to webp started");
-                    console.log(command);
-                }
-            })
-            .on("stdout", outLine => {
-                if (global.DEBUG) console.log(outLine);
-            })
-            .on("stderr", errLine => {
-                if (global.DEBUG) console.log(errLine);
-            })
-            //.addOutputOptions(["-vcodec", "libwebp"])
-            //.toFormat("png")
-            .save(tmpFileOut.name);
-    });
+    await sharp(tmpFileIn.name).png().toFile(tmpFileOut.name);
 
     const buff = fs.readFileSync(tmpFileOut.name);
     tmpFileOut.removeCallback();

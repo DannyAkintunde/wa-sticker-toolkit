@@ -1,9 +1,9 @@
 "use strict";
 
-const {Sticker, createSticker} = require("./Sticker");
+const { Sticker, createSticker } = require("./Sticker");
 const { StickerTypes } = require("./lib/StickerTypes");
 const { TextPositions } = require("./lib/addTextToMedia");
 
-global.DEBUG = false;
+global.DEBUG = true;
 
 module.exports = { Sticker, createSticker, StickerTypes, TextPositions };
