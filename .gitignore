@@ -1,5 +1,4 @@
 node_modules/
-package-lock.json 
 src/*.mp4
 /src/*.png
 /src/*.webp
