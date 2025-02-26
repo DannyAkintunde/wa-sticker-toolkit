@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://files.catbox.moe/tzde2e.png"/>
+<img src="https://files.catbox.moe/tzde2e.png" alt="package logo"/>
 
 # WA Sticker Toolkit
 
@@ -9,50 +9,17 @@
 
 ## Installation
 
-```cmd
-> npm i wa-sticker-toolkit
+Install via npm:
+
+```bash
+npm i wa-sticker-toolkit
 ```
 
-## Usage
+## Overview
 
-`wa-sticker-toolkit` provides two ways to create stickers.
-The paramers are the same for both.
+wa-sticker-toolkit provides a simple way to create WhatsApp stickers from various sources such as Buffers, URLs, SVG strings, Base64-encoded images, file paths, GIFs, and videos. The output format is WebP, with GIFs and videos automatically converted into animated stickers.
 
-1. First is the Buffer, SVG String, URL, Base64 encoded string, File path of static image, GIF or Video. The second is the options. GIFs and Videos will output an animated WebP file.
-
-2. 2nd Paramter, an object, Sticker Options accepts the following fields
-
-```js
-{
-    metadata: {
-        pack: "The pack name.",
-        author: "The author name.",
-        id: "The sticker id, if this property is undefined it will be generated.",
-        categories: "The sticker categories, this is used for the sticker search feature on whatsapp (default:undefined)."
-    },
-    type: "Value from the StickerTypes Object (exported), available values are 'circle', 'crop', 'fill' or undefined default (shrink)",
-    quality: "The quality of the output file, (int: 1-100)",
-    backgroundColor: "The background color in hexadecimal format, rgba object (sharp), defaults to undefined (transparent)",
-    background: "A short hand to backgroundColor",
-    // border options
-    borderWidth: "The width of the border, default undefined (int:0)",
-    borderColor: "The color of the border in hexadecimal format, default undefined (white).",
-    borderRadius: "The radius for the border i.e use for round edges, int or percentage string ('50%') default undefined (int:0)",
-    // text options
-    text: {
-        content: "The text to display on the sticker (str)",
-        color: "The color of the text in hexadecimal format, default undefinded (white)",
-        font: "The font of the text, default undefined (Sans)",
-        fontSize: "The font size of the text, defaults undefined (int:21)",
-        position: "This defines the position of the text on the sticker, value form the TextPositions Object (exported), available values are 'top', 'center', 'bottom', default undefined ('center')"
-    },
-    text: "If value is string it's an alias to text.content"
-}
-```
-
-## Import
-
-before using the library you need to import it.
+### Importing the Library
 
 ```js
 const {
@@ -60,112 +27,112 @@ const {
     createSticker,
     StickerTypes,
     TextPositions
-} = require("wa-sticker-toolkit"); // common js, es6 not supported.
+} = require("wa-sticker-toolkit"); // CommonJS, ES6 not supported
 ```
 
-## Using the sticker Constructor (Recomended)
+---
+
+## Creating Stickers
+
+There are two main ways to create stickers:
+
+1. Using the Sticker Constructor (Recommended)
+2.
 
 ```js
 const sticker = new Sticker(image, {
-    metadata {
-        pack: 'My Pack', // The pack name
-        author: 'Me', // The author name
-        categories: ['🤩', '🎉'], // The sticker category
-        id: '12345', // The sticker id
+    metadata: {
+        pack: "My Pack", // Pack name
+        author: "Me", // Author name
+        id: "12345", // Sticker ID (auto-generated if omitted)
+        categories: ["🤩", "🎉"] // Used for WhatsApp sticker search
     },
-    type: StickerTypes.FULL, // The sticker type
-    quality: 50, // The quality of the output file
-    background: '#000000' // The sticker background color.
-})
+    type: StickerTypes.FILL, // Sticker type
+    quality: 50, // Output quality (1-100)
+    background: "#000000" // Background color
+});
 
-const buffer = await sticker.toBuffer() // convert to buffer
-// or save to file
-await sticker.toFile('sticker.webp')
+// Convert to buffer
+const buffer = await sticker.toBuffer();
 
-// or get Baileys-MD Compatible Object
-conn.sendMessage(jid, await sticker.toMessage())
+// Save to file
+await sticker.toFile("sticker.webp");
 
+// Send using Baileys-MD
+conn.sendMessage(jid, await sticker.toMessage());
 ```
 
-You can also chain methods like this:
+You can also chain methods for better readability:
 
 ```js
 const buffer = await new Sticker(image)
     .setPack("My Pack")
     .setAuthor("Me")
-    .setType(StickerTypes.FULL)
+    .setType(StickerTypes.FILL)
     .setCategories(["🤩", "🎉"])
-    .setId("12345"),
-    .setBackgroundColor("#000000") // or .setBackground
+    .setId("12345")
+    .setBackground("#000000")
     .setQuality(50)
     .toBuffer();
 ```
 
-The `image` (first parameter) can be a Buffer, URL, SVG string, Base64 encode string, or File path.
+> Note: The image parameter can be a Buffer, URL, SVG string, Base64 string, or file path.
 
-### SVG Example
+---
 
-```js
-const sticker = new Sticker(
-    `
-    <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-        <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 464c-119.1 0-216-96.9-216-216S136.9 40 256 40s216 96.9 216 216-96.9 216-216 216z" fill="#ff0000" />
-    </svg>
-`,
-    { author: "W3", text: { content: "Wow, a loop", color: "red" } }
-);
-```
-
-## Using the `createSticker` function
+2. Using createSticker Function
 
 ```js
-const buffer = await createSticker(buffer, options); // same params as the constructor
-// NOTE: `createSticker` returns a Promise of a Buffer
+const buffer = await createSticker(image, options);
+// Returns a Promise that resolves to a Buffer
 ```
+
+---
 
 ## Options
 
-The following options are valid:
+The second parameter (options) is an object that allows customization:
 
 ```js
 {
-    metadata?: {
-        pack?: string,
-        author?: string,
-        id?: string,
-        categories?: []
+    metadata: {
+        pack: "Pack Name",
+        author: "Author Name",
+        id: "Sticker ID",
+        categories: ["🤣", "❤️"]
     },
-    type?: StickerTypes || string,
-    quality?: number,
-    backgroundColor?: Sharp.color,
-    // border options
-    borderWidth?: number,
-    borderColor?: number,
-    borderRadius?: number || string,
-    // text options
-    text?: {
-        content: string,
-        color?: string,
-        font?: string,
-        fontSize?: number,
-        position?: TextPositions || string
+    type: StickerTypes.FILL,  // 'default', 'crop', 'fill', 'circle'
+    quality: 80,              // Integer (1-100)
+    background: "#FFFFFF",    // Hex color or sharp color object
+    borderWidth: 5,          // Border width (default: 0)
+    borderColor: "#FF0000",  // Border color (default: white)
+    borderRadius: "50%",     // Rounded corners (percentage or integer)
+    text: {
+        content: "Hello!",   // Text overlay
+        color: "#FFFFFF",    // Text color (hex only)
+        font: "Arial",       // Font family
+        fontSize: 24,        // Font size
+        position: TextPositions.BOTTOM // 'top', 'center', 'bottom'
     }
 }
 ```
 
-## Sticker Types and TextPositions
+---
 
-Sticker types and Test Positions are exported as an object.
+## Sticker Types & Text Positions
+
+### Sticker Types
 
 ```js
 const StickerTypes = Object.freeze({
-    DEFAULT: 'default',
-    CROPPED: 'crop',
-    FILL: 'fill',
-    CIRCLE: 'circle,
-})
-
+    DEFAULT: "default",
+    CROPPED: "crop",
+    FILL: "fill",
+    CIRCLE: "circle"
+});
 ```
+
+### Text Positions
 
 ```js
 const TextPositions = Object.freeze({
@@ -175,19 +142,21 @@ const TextPositions = Object.freeze({
 });
 ```
 
-## Background
+---
 
-Background can be a hex color string or a sharp color object.
+## Background Options
 
-```JSON
-{
-    "background": "#FFFFFF"
-}
+You can specify a background color in two ways:
+
+### Hex Color String:
+
+```json
+{ "background": "#FFFFFF" }
 ```
 
-or
+### Sharp Color Object:
 
-```JSON
+```json
 {
     "background": {
         "r": 255,
@@ -198,23 +167,35 @@ or
 }
 ```
 
-but note the tect color only accepts hexcodes as values.
+> Note: The text color only accepts hex codes.
 
-# Metadata
+---
 
-Here's some basic information about WhatsApp Sticker Metadata.
+## WhatsApp Sticker Metadata
 
-In WhatsApp, stickers have their own metadata embedded in the WebP file as They hold info like the author, the title or pack name and the category.
+WhatsApp stickers include metadata such as the pack name, author, and categories.
 
-### 1. Author and Pack Title
+1. Author & Pack Title
 
-<a href="https://ibb.co/MhyzMwJ"><img src="https://i.ibb.co/9vmxsKd/metadata.jpg" alt="metadata" border="0" width=256></a>
+<img src="https://i.ibb.co/9vmxsKd/metadata.jpg" alt="Metadata example" width="256"/> Bold text: Pack title
 
-The text on bold is the pack title and the rest is the author.
-This is actually [Exif](https://en.wikipedia.org/wiki/Exif) Metadata embedded in the WebP file.
+Remaining text: Author name
 
-### 2 Sticker Category
+> This metadata is stored using Exif data embedded in the WebP file.
 
-## This is an array of Emojis. [Learn More](https://github.com/WhatsApp/stickers/wiki/Tag-your-stickers-with-Emojis)
+2. Sticker Categories
 
-thanks for using `wa-sticker-toolkit`.
+WhatsApp allows stickers to have emoji-based categories.
+Learn more.
+
+---
+
+# Backward Compatibility
+
+If you're migrating from [`wa-sticker-formatter`](https://www.npmjs.com/package/wa-sticker-formatter) or [`@shibam/sticker-maker`](https://npmjs.com/package/@shibam/sticker-maker), no major changes are needed—just update your import statements, and everything should work seamlessly.
+
+Thanks for using wa-sticker-toolkit!
+
+---
+
+This program is licenced under the [MIT](LICENCE) licence
