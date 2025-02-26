@@ -1,18 +1,23 @@
 {
   "name": "wa-sticker-toolkit",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "A package to create stickers for WhatsApp.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test at the moment, I'm to lazy to do so now.\" && exit 0"
   },
+  "files": [
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DannyAkintunde/wa-sticker-toolkit.git"
   },
   "keywords": [
     "sticker",
-    "WhatsApp"
+    "whatsapp",
+    "WhatsApp-stickers",
+    "webp"
   ],
   "author": "DannyAkintunde",
   "license": "MIT",
