@@ -139,7 +139,7 @@ async function generateMaskFilters(
     return [
         {
             inputs: "v",
-            filter: `scale=${maskCutOutDimensions[0]}:${maskCutOutDimensions[1]}:force_original_aspect_ratio=decrease,pad=${pad}:-1:-1,format=yuva420p`,
+            filter: `scale=${maskCutOutDimensions[0]}:${maskCutOutDimensions[1]}:force_original_aspect_ratio=none,pad=${pad}:-1:-1,format=yuva420p`,
             outputs: "fv"
         },
         { filter: "movie", options: mask.name, outputs: "m" },
