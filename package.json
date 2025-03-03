@@ -1,6 +1,6 @@
 {
     "name": "wa-sticker-toolkit",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "A package to create stickers for WhatsApp.",
     "main": "src/index.js",
     "scripts": {
