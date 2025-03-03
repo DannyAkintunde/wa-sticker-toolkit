@@ -23,7 +23,7 @@ class Sticker {
             ...this.options.metadata
         };
         this.video = {
-            length: this.options.length || 5,
+            length: this.options.length || 3,
             fps: this.options.fps || 8,
             ...this.options.video
         };

@@ -55,7 +55,7 @@ async function imageToPng(media, ext) {
     return buff;
 }
 
-async function videoToWebp(media) {
+async function videoToWebp(media, quality) {
     const tmpFileOut = tmp.fileSync({ postfix: ".webp" });
     const tmpFileIn = tmp.fileSync({ postfix: ".mov" });
 
@@ -82,7 +82,18 @@ async function videoToWebp(media) {
             .on("stderr", errLine => {
                 if (global.DEBUG) console.log(errLine);
             })
-            .outputOptions(["-loop", "0", "-lossless", "1", "-vsync", "0"])
+            .outputOptions([
+                "-loop",
+                "0",
+                "-lossless",
+                "0",
+                "-c:v",
+                "libwebp",
+                "-quality",
+                `${quality}`,
+                "-vsync",
+                "0"
+            ])
             .toFormat("webp")
             .save(tmpFileOut.name);
     });
