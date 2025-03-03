@@ -15,7 +15,7 @@ function addTextToMedia(inputBuffer, content, options = {}, isVideo) {
     const text = content;
     const textColor = options.color || "white";
     const font = options.font || "Sans";
-    const fontSize = options.fontSize || options.size || 21;
+    const fontSize = options.fontSize || options.size || 31;
     const position = options.position || "center";
 
     const filters = {
