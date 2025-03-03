@@ -43,7 +43,7 @@ async function buildSticker(stickerObject) {
             );
         }
         if (isVideo) {
-            buffer = await videoToWebp(buffer);
+            buffer = await videoToWebp(buffer, stickerObject.options.quality);
         }
 
         // write metadata
