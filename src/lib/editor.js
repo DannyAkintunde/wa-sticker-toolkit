@@ -7,7 +7,7 @@ const { processMedia, getDimensions } = require("./internal/mediaProcessor");
 async function cropMedia(inputPath, outputPath, isVideo, options = {}) {
     // Crop filter: center crop to 512x512, then output in RGBA.
     const filter =
-        "scale=512:512:force_original_aspect_ratio=increase,crop=512:512:(iw-512)/2:(ih-512)/2,format=rgba";
+        "scale=512:512:force_original_aspect_ratio=increase,crop=512:512:(iw-512)/2:(ih-512)/2,format=yuva420p";
 
     await processMedia(inputPath, outputPath, filter, isVideo, options);
 }
@@ -19,9 +19,8 @@ async function cropMedia(inputPath, outputPath, isVideo, options = {}) {
 async function shrinkMedia(inputPath, outputPath, isVideo, options = {}) {
     const { backgroundColor = "transparent" } = options;
     const dimensions = await getDimensions(inputPath);
-    // Scale (with force_original_aspect_ratio=decrease) then pad to 512x512.
+    // Scale (with force_original_aspect_ratio=decrease).
     const filter = `scale=512:512:force_original_aspect_ratio=decrease,format=yuva420p`;
-    //`color=c=red:s=512x512,format=yuva420p,overlay`;
 
     await processMedia(
         inputPath,
@@ -38,9 +37,9 @@ async function shrinkMedia(inputPath, outputPath, isVideo, options = {}) {
  * cropping as needed.
  */
 async function fillMedia(inputPath, outputPath, isVideo, options = {}) {
-    // Scale with force_original_aspect_ratio=increase then crop to 512x512.
+    // Scale with force_original_aspect_ratio=none then crop to 512x512.
     const filter =
-        "scale=512:512:force_original_aspect_ratio=none,crop=512:512,format=rgba";
+        "scale=512:512:force_original_aspect_ratio=none,crop=512:512,format=yuva420p";
 
     await processMedia(inputPath, outputPath, filter, isVideo, options);
 }
@@ -52,9 +51,9 @@ async function fillMedia(inputPath, outputPath, isVideo, options = {}) {
  */
 async function makeCircularMedia(inputPath, outputPath, isVideo, options = {}) {
     options.borderRadius = "50%";
-    // Use the fill mode to ensure the entire frame is used.
+    // Use the crop mode to ensure the entire frame is used.
     const filter =
-        "scale=512:512:force_original_aspect_ratio=decrease,pad=512:512:-1:-1,crop=512:512,format=rgba";
+        "scale=512:512:force_original_aspect_ratio=increase,crop=512:512:(iw-512)/2:(ih-512)/2,format=rgba";
 
     await processMedia(inputPath, outputPath, filter, isVideo, options);
 }
