@@ -3,7 +3,7 @@
 
 # WA Sticker Toolkit
 
-[![NPM](https://img.shields.io/npm/l/wa-sticker-toolkit?style=flat-square&label=License)](https://github.com/DannyAkintunde/wa-sticker-toolkit/blob/main/LICENSE) [![CodeFactor](https://img.shields.io/codefactor/grade/github/DannyAkintunde/wa-sticker-toolkit?style=flat-square&label=Code%20Quality)](https://www.codefactor.io/repository/github/dannyakintunde/wa-sticker-toolkit) [![NPM](https://img.shields.io/npm/dw/wa-sticker-toolkit?style=flat-square&label=Downloads)](https://npmjs.com/package/wa-sticker-toolkit)
+[![NPM](https://img.shields.io/npm/l/wa-sticker-toolkit?style=flat-square&label=License)](https://github.com/DannyAkintunde/wa-sticker-toolkit/blob/main/LICENSE) [![CodeFactor](https://www.codefactor.io/repository/github/dannyakintunde/wa-sticker-toolkit/badge)](https://www.codefactor.io/repository/github/dannyakintunde/wa-sticker-toolkit) [![NPM](https://img.shields.io/npm/dw/wa-sticker-toolkit?style=flat-square&label=Downloads)](https://npmjs.com/package/wa-sticker-toolkit)
 
 </div>
 
