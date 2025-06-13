@@ -1,6 +1,7 @@
 const ffmpeg = require("fluent-ffmpeg");
 const fs = require("fs");
 const tmp = require("tmp");
+const { getConfig } = require("../config");
 
 const TextPositions = Object.freeze({
     TOP: "top",
@@ -31,7 +32,9 @@ function addTextToMedia(inputBuffer, content, options = {}, isVideo) {
     const outputFile = tmp.fileSync({ postfix: ext });
 
     fs.writeFileSync(inputFile.name, inputBuffer);
-
+    
+    const { ffmpegPath } = getConfig();
+    if (ffmpegPath) ffmpeg.setFfmpegPath(ffmpegPath);
     return new Promise((resolve, reject) => {
         ffmpeg(inputFile.name)
             .output(outputFile.name)

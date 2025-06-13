@@ -4,6 +4,7 @@ const fs = require("fs");
 const tmp = require("tmp");
 const TempFiles = require("../helpers/TempFiles");
 const { createSvgMaskAndBorder } = require("./svgMaskOverlay");
+const { getConfig } = require("../../config")
 
 /**
  * Generates a PNG mask file from the SVG mask.
@@ -199,6 +200,8 @@ function processFilters(
     quality,
     isVideo
 ) {
+    const { ffmpegPath } = getConfig();
+    if (ffmpegPath) ffmpeg.setFfmpegPath(ffmpegPath);
     return new Promise((resolve, reject) => {
         const process = ffmpeg(inputPath)
             .complexFilter(filterComplex)
@@ -236,6 +239,8 @@ function processFilters(
 }
 
 function getDimensions(videoPath) {
+    const { ffprobePath } = getConfig();
+    ffmpeg.setFfprobePath(ffprobePath);
     return new Promise((resolve, reject) => {
         ffmpeg.ffprobe(videoPath, (err, metadata) => {
             if (err) reject(err);

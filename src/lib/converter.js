@@ -2,6 +2,7 @@ const fs = require("fs");
 const sharp = require("sharp");
 const ffmpeg = require("fluent-ffmpeg");
 const tmp = require("tmp");
+const { getConfig } = require("../config");
 
 async function imageToWebp(media) {
     const tmpFileOut = tmp.fileSync({ postfix: ".webp" });
@@ -9,6 +10,8 @@ async function imageToWebp(media) {
 
     fs.writeFileSync(tmpFileIn.name, media);
 
+    const { ffmpegPath } = getConfig();
+    if (ffmpegPath) ffmpeg.setFfmpegPath(ffmpegPath);
     await new Promise((resolve, reject) => {
         ffmpeg(tmpFileIn.name)
             .on("error", err => {
@@ -61,6 +64,8 @@ async function videoToWebp(media, quality) {
 
     fs.writeFileSync(tmpFileIn.name, media);
 
+    const { ffmpegPath } = getConfig();
+    if (ffmpegPath) ffmpeg.setFfmpegPath(ffmpegPath);
     await new Promise((resolve, reject) => {
         ffmpeg(tmpFileIn.name)
             .on("error", err => {
@@ -109,6 +114,8 @@ async function videoToMov(media, stickerLength, frameRate) {
 
     fs.writeFileSync(tmpFileIn.name, media);
 
+    const { ffmpegPath } = getConfig();
+    if (ffmpegPath) ffmpeg.setFfmpegPath(ffmpegPath);
     await new Promise((resolve, reject) => {
         ffmpeg(tmpFileIn.name)
             .on("error", err => {
