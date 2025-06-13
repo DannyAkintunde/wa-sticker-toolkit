@@ -51,19 +51,19 @@ There are two main ways to create stickers:
         quality: 50, // Output quality (1-100)
         background: "#000000" // Background color
     });
-    
+
     // Convert to buffer
     const buffer = await sticker.toBuffer();
-    
+
     // Save to file
     await sticker.toFile("sticker.webp");
-    
+
     // Send using Baileys-MD
     conn.sendMessage(jid, await sticker.toMessage());
     ```
 
     You can also chain methods for better readability:
-    
+
     ```js
     const buffer = await new Sticker(image)
         .setPack("My Pack")
@@ -171,6 +171,25 @@ You can specify a background color in two ways:
 
 ---
 
+## Configuration
+
+You can set custom paths for `ffmpeg` and `ffprobe` using the config system:
+
+```js
+const { config } = require("wa-sticker-toolkit");
+
+config.setConfig({
+    ffmpegPath: "/custom/path/to/ffmpeg",
+    ffprobePath: "/custom/path/to/ffprobe"
+});
+
+// use config.getConfig() to get config Object
+```
+
+If not set, the toolkit assumes `ffmpeg` and `ffprobe` are available in your system's PATH.
+
+---
+
 ## WhatsApp Sticker Metadata
 
 WhatsApp stickers include metadata such as the pack name, author, and categories.
@@ -178,9 +197,9 @@ WhatsApp stickers include metadata such as the pack name, author, and categories
 1. Author & Pack Title
 
     <img src="https://i.ibb.co/9vmxsKd/metadata.jpg" alt="Metadata example" width="256"/>
-    
+
     Bold text: Pack title
-    
+
     Remaining text: Author name
 
     > This metadata is stored using Exif data embedded in the WebP file.
